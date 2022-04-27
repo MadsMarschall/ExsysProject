@@ -23,8 +23,14 @@
     </b-tabs>
   </b-modal>
 </template>
+
 <script lang="ts">
 export default {
   name: "SettingsDialog",
+  data: () => {
+    return {
+      value: null,
+    };
+  },
 };
 </script>

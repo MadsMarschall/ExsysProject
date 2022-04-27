@@ -1,82 +1,54 @@
 import express from "express";
-import ISearchableDataProduct from "./interfaces/ISearchableDataProduct";
 import bodyParser from "body-parser";
-const app = express();
-const port = 3000;
-// create application/json parser
-// create application/json parser
+import cors from "cors";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import multer from "multer";
+import routes from "./api-routes/routes";
+import DataProductController from "./controllers/DataProductController";
+import ConcreteTagSearchStrat from "./strategies/search/ConcreteTagSearchStrat";
+dotenv.config();
 
-const multer = require("multer");
+//Creating express app
+const app = express();
+const port = process.env.PORT || 3000;
+
+//Multer is only used for multipart/form-data (usually file uploads), so it might be deleted later on since it was used before enctype was adjusted in postman
 const upload = multer();
 
 
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
+
 // parse application/json
 app.use(bodyParser.json())
 
-interface IReport {
-  id:number,
-  name: string;
-  tags:string[];
-  url:string;
-}
 
-let reports:IReport[] = [
-    {name:"Super Cool DataProduct",
-    tags:["tag1"],
-    url:"",
-    id:1},
-  {name:"Another Cool DataProduct",
-    tags:["tag2"],
-  url:"",
-  id:2}
-];
+//Setting cors policy to allow for specific frontend to connect to API
+var corsOptions = {
+    origin: [<string>process.env.API_BASEURL,<string>process.env.FRONTEND_URL],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions))
+
+
+//Helmet sets standard policies and catches a few common vulnerabilities
+app.use(helmet());
+
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-app.get("/searchbytag", (req, res) => {
-  interface IQuery {
-    tag:string
-  }
-  let q = req.query as unknown as IQuery;
-  let results:IReport[] = [];
-  reports.forEach(e=>{
-    if(e.tags.includes(q.tag)){
-      results.push(e);
-    }
-  })
-  res.send(results);
+    res.send("Hello World!");
 });
 
+//setupControllers
 
-app.post("/addtag",upload.none(),(req, res) => {
-  console.log(req.body)
-  let report = getReportById(req.body.id);
 
-  if(report == null){
-    res.send("wrong formatting");
-  }
 
-  report?.tags.push(req.body.tag);
-  console.log(report);
-  res.end("yes");
-});
+//Adding routes
+app.use("/api",routes)
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port ${port}`);
 });
-
-
-function getReportById(id:number):IReport | null{
-  let result:IReport  | null = null;
-  reports.forEach(e=>{
-    if(e.id==id){
-      result = e;
-    }
-  })
-  return result;
-}
