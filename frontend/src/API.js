@@ -48,6 +48,22 @@ export class API {
         };
         await this.A.post("/dataproducts", object);
     }
+    async getDataProductById(id) {
+        let result;
+        await this.A.get("/dataproducts")
+            .then((res) => {
+            const temp = res.data;
+            result = temp.find((e) => e.id == id);
+        })
+            .catch((e) => {
+            console.log(e);
+            result = null;
+        });
+        if (!result) {
+            result = null;
+        }
+        return result;
+    }
 }
 export const api = new API();
 //# sourceMappingURL=API.js.map
