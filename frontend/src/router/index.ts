@@ -16,10 +16,16 @@ const routes: Array<RouteConfig> = [
     name: "prototype1",
     component: ReportSearchView,
   },
+  {
+    path: "/dataproducts/:id",
+    name: "Dataproduct",
+    props: true,
+    component: () => import("../views/dataproducts/DataProduct.vue"),
+  },
 ];
 
 const router = new VueRouter({
   routes,
 });
-
+router;
 export default router;
