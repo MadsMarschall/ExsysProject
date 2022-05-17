@@ -48,11 +48,12 @@ export class API {
     return result;
   }
 
-  async addTagToDataProduct(id: number, tag: string) {
+  async addTagsToDataProduct(id: number, tags: string[]) {
     const object = {
-      tag: tag,
+      tags,
+      id,
     };
-    await this.A.post("/dataproducts", object);
+    await this.A.post("/addtag", object);
   }
 
   async getDataProductById(id: number): Promise<IReport | null> {
