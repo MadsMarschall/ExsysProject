@@ -19,4 +19,11 @@ export default class ConcreteFuzzySearchStrat implements ISearchStrategy {
         return result;
     }
 
+    indexContent(newReports: IDataProduct[]): void {
+        this.fuse = new Fuse(reports, {
+            keys: ['name', 'id', "tags"],
+            threshold:0.4
+        })
+    }
+
 }
