@@ -13,7 +13,7 @@ test("canGetDataProductBySearchTag", async () => {
     expect(dp.tags[0]).toContain("tag1");
 });
 test("canAddTagToDataProduct", async () => {
-    const dataproducts = await api.addTagToDataProduct(1, "Tag");
+    const dataproducts = await api.addTagsToDataProduct(1, ["Tag", "hello"]);
     const dp = dataproducts[0];
     expect(dp.tags[0]).toContain("tag1");
 });
