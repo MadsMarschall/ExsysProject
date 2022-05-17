@@ -4,12 +4,11 @@
       v-for="dp in dataProducts"
       v-bind:key="dp.id"
       href="#"
-      style="z-index: 100"
       :to="'/dataproducts/' + dp.id"
     >
       <div class="d-flex justify-content-between">
         <h5 class="pt-2 pb-2">{{ dp.name }}</h5>
-        <small class="text-muted">3 days ago</small>
+        <small class="text-muted">Owner: Donald A. Schön</small>
       </div>
       <b-row>
         <b-col align="left">
