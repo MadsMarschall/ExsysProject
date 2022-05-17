@@ -28,16 +28,17 @@ export default class DataProductController implements IDataProductController {
     }
   }
 
-  public addTagToDataProduct = (req: Request, res: Response): void =>{
+  public addTagsToDataProduct = (req: Request, res: Response): void =>{
     console.log(req.body);
     let report = this.getReportById(req.body.id);
 
     if (report == null) {
       res.send("wrong formatting");
+      return
     }
-
-    report?.tags.push(req.body.tag);
-    console.log(report);
+    report.tags = req.body.tags;
+    console.log(reports);
+    this.concreteSearchStrat.indexContent(reports);
     res.end("yes");
   }
 
