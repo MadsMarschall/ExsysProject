@@ -20,7 +20,7 @@
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="position-absolute w-100">
+      <b-navbar-nav class="centered-axis-x">
         <b-nav-form class="ml-auto mr-auto">
           <b-input-group>
             <b-form-input
@@ -31,21 +31,15 @@
             ></b-form-input>
           </b-input-group>
         </b-nav-form>
-        <b-row
-          class="position-absolute w-100"
-          align-h="center"
-          style="top: 3em"
-        >
-          <b-col lg="6" md="8" sm="10" cols="12">
-            <div>
-              <SearchResultModal
-                :data-products="dataProductSearch"
-                :is-searching="isSearching"
-                v-show="isSearching"
-              />
-            </div>
-          </b-col>
-        </b-row>
+        <div class="fixed-top" style="top: 3em; left: 0">
+          <SearchResultModal
+            :data-products="dataProductSearch"
+            :is-searching="isSearching"
+            v-show="isSearching"
+            class="centered-axis-x"
+            style="width: 80vw; z-index: 200"
+          />
+        </div>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -90,3 +84,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+.centered-axis-x {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 100;
+}
+</style>
