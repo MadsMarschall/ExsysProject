@@ -15,7 +15,7 @@ router.put("/dataproducts", dataProductController.modifyDataProduct);
 router.patch("/dataproducts");
 
 router.post("/addsuperuser",dataProductController.addSuperUserToDataProduct);
-router.post("/addtag", dataProductController.addTagToDataProduct);
+router.post("/addtag", dataProductController.addTagsToDataProduct);
 
 
 
