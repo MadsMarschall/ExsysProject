@@ -6,7 +6,7 @@ export class API {
 
   constructor() {
     this.A = axios.create({
-      baseURL: "http://localhost:3000/api",
+      baseURL: process.env.API_BASEURL,
       timeout: 1000,
       headers: { "X-Custom-Header": "foobar" },
     });
